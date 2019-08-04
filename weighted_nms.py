@@ -11,6 +11,7 @@ def weighted_nms_dict(input_dict, thresh=0.5):
     """
     dets = np.hstack((input_dict['detection_boxes'],
                       np.expand_dims(input_dict['detection_scores'], 1)))
+    dets = dets[:input_dict['num_detections'], :]
 
     max_ids, weighted_boxes = weighted_nms(dets, thresh)
 
