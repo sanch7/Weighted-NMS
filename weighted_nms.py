@@ -1,7 +1,14 @@
+# Non maximal suppression as presented in
+# http://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w14/Zhou_CAD_Scale_Invariant_ICCV_2017_paper.pdf 
+
 import numpy as np
 
 
 def weighted_nms_dict(input_dict, thresh=0.5):
+    """
+    Takes a Tensorflow Object Detection API style predition dict
+    and outputs dict with weighted NMS-ed bounding boxes
+    """
     dets = np.hstack((input_dict['detection_boxes'],
                       np.expand_dims(input_dict['detection_scores'], 1)))
 
@@ -17,6 +24,10 @@ def weighted_nms_dict(input_dict, thresh=0.5):
 
 
 def weighted_nms(dets, thresh=0.5):
+    """
+    Takes bounding boxes and scores and a threshold and applies 
+    weighted non-maximal suppression.
+    """
     scores = dets[:, 4]
     x1 = dets[:, 0]
     y1 = dets[:, 1]
